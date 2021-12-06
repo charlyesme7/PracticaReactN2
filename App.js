@@ -1,13 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import StackNavigator1 from './Navigations/StackNavigator1';
+import StackNavigator from './Navigations/StackNavigator';
 
 export default function App() {
   return (
       <NavigationContainer>
-        <StackNavigator1/>
+        <StackNavigator/>
       </NavigationContainer>
   );
 }
@@ -15,7 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#49ffff',
     alignItems: 'center',
     justifyContent: 'center',
   },

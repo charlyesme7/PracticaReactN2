@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card } from 'react-native-elements'
 
@@ -10,7 +10,7 @@ const DetailScreen = ({route}) => {
     const [datos, setDatos]=useState([]);
     const [wait, setWait]=useState(false);
     useEffect(()=>{
-        const apikey ="65c74cf9ff4cbe5bf41e2a609aa3b767";
+        const apikey ="32f8dd88c90cd07cf7953cc26459fa6f";
         const api_url=`https://api.openweathermap.org/data/2.5/onecall?lat=${Lati}&lon=${Longi}&exclude=current,minutely,hourly&appid=${apikey}&units=metric`;
         fetch(api_url)
             .then(data => {
@@ -27,7 +27,7 @@ const DetailScreen = ({route}) => {
     const createDate=(dt,ix)=> {
         if (ix===0)
         {
-            return "EL DIA DE HOY";
+            return "En este dia";
         }
         else
         {
@@ -50,14 +50,14 @@ const DetailScreen = ({route}) => {
                             <View>
                                 <Text style={styles.texto}>
                                     Temperatura: {a.temp.day}°C{"\n"}
-                                    Temperatura maxima: {a.temp.max}°C{"\n"}
                                     Temperatura minima: {a.temp.min}°C{"\n"}
+                                    Temperatura maxima: {a.temp.max}°C{"\n"}
                                 </Text>
                             </View>
                         </Card>
                     )
                     :
-                    <Text style={styles.texto2}>Deja que cargue</Text>                    
+                    <Text style={styles.texto2}>Espera un momento, esta cargando.</Text>                    
 
                 }
             </ScrollView>

@@ -14,7 +14,7 @@ const HomeScreen = ({navigation}) => {
     
     const buscar = (ciudad) => {
         //console.log(peli)
-        const apikey ="65c74cf9ff4cbe5bf41e2a609aa3b767";
+        const apikey ="32f8dd88c90cd07cf7953cc26459fa6f";
         const api_url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apikey}&units=metric`;
         
         fetch(api_url)
@@ -30,8 +30,8 @@ const HomeScreen = ({navigation}) => {
             else
             {
                 setTempactual(resultado.main.temp);
-                setTempmax(resultado.main.temp_max);
                 setTempmin(resultado.main.temp_min);
+                setTempmax(resultado.main.temp_max);
                 setConsultado(true);
                 setLati(resultado.coord.lat);
                 setLongi(resultado.coord.lon);
@@ -71,10 +71,10 @@ const HomeScreen = ({navigation}) => {
                         
                         {Ciudad}{"\n"}
                         Temperatura actual: {Tempactual}°C{"\n"}
-                        Temperatura maxima: {Tempmax}°C{"\n"}
                         Temperatura minima: {Tempmin}°C{"\n"}
+                        Temperatura maxima: {Tempmax}°C{"\n"}
                         <Button
-                        title="Pronostico semanal"
+                        title="Pronostico de la semana"
                         onPress={() => navigation.navigate('DetailScreen',{Lati,Longi,Ciudad})}
                         />
                     </Text>
