@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {ToastAndroid,StyleSheet, Text, View, Button} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 
 const HomeScreen = ({navigation}) => {
@@ -20,11 +20,19 @@ const HomeScreen = ({navigation}) => {
             return data.json();
           })
           .then(resultado => {
-            console.log(resultado);
-            if(resultado.cod == 404 || resultado.cod == 400)
-            {
+
+            if(resultado.cod == 404 || resultado.cod == 400){
+                console.log('No se encuentra la ciudad')
+                    ToastAndroid.showWithGravityAndOffset(
+                      "No se encuentra la ciudad",
+                      ToastAndroid.SHORT,
+                      ToastAndroid.BOTTOM,
+                      25,
+                      80
+                    );
                 setConsultado(false);
-            }
+
+               }
             else
             {
                 setTempactual(resultado.main.temp);
