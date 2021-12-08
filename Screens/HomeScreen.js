@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {SearchBar} from 'react-native-elements';
-import Constants from 'expo-constants';
 
 const HomeScreen = ({navigation}) => {
     const [Tempactual, setTempactual]=useState([""]);
@@ -9,11 +8,10 @@ const HomeScreen = ({navigation}) => {
     const [Tempmin, setTempmin]=useState([""]);
     const [Ciudad, setCiudad]=useState([""]);   
     const [consultado, setConsultado]= useState(false);
-    const [Lati, setLati]= useState("");
-    const [Longi, setLongi]= useState("");
+    const [lat, setLati]= useState("");
+    const [lon, setLongi]= useState("");
     
     const buscar = (ciudad) => {
-        //console.log(peli)
         const apikey ="32f8dd88c90cd07cf7953cc26459fa6f";
         const api_url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apikey}&units=metric`;
         
@@ -43,10 +41,13 @@ const HomeScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <SearchBar
-                round
+
+        <View  style={styles.bar}>
+        <SearchBar
+                lightTheme
+                platform="default"
                 containerStyle={{
-                    backgroundColor:'transparent',
+                    backgroundColor:'#EDEDED',
                     borderTopWidth:0,
                     borderBottomWidth:0,
                 }}
@@ -60,27 +61,41 @@ const HomeScreen = ({navigation}) => {
                     setConsultado(false);
                 }}
                 value={Ciudad}
-                placeholder="Escribe aqui..."
+                placeholder="Escribe la ciudad..."
             />
+        </View>
+            
 
-            <View style={{margin:10, fontSize:20, alignItems:'center', justifyContent:'center'}}>
+            <View style={styles.datos}>
                 {
                     consultado 
                     ?
-                    <Text style={styles.texto}>
-                        
-                        {Ciudad}{"\n"}
-                        Temperatura actual: {Tempactual}°C{"\n"}
-                        Temperatura minima: {Tempmin}°C{"\n"}
-                        Temperatura maxima: {Tempmax}°C{"\n"}
+                    
+                    <>
+                    
+                        <Text style={styles.texto}>
+                            actual: {Tempactual}°C    
+                        </Text>
+                        <Text style={styles.texto}>
+                            minima: {Tempmin}°C
+                        </Text>
+                        <Text style={styles.texto}>
+                            maxima: {Tempmax}°C 
+                        </Text>
+
                         <Button
-                        title="Pronostico de la semana"
-                        onPress={() => navigation.navigate('DetailScreen',{Lati,Longi,Ciudad})}
-                        />
-                    </Text>
+                            color= "#818181"
+                            style={styles.bar}
+                            title="Pronóstico"
+                            onPress={() => navigation.navigate('DetailScreen', { lat, lon, Ciudad })} />
+                    
+                    
+                    
+                    </>
                     :
+
                     <Text style={styles.texto}>
-                        Busca una ciudad
+                        Realiza una Búsqueda
                     </Text>
                 }
 
@@ -93,21 +108,24 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: Constants.statusBarHeight,
       justifyContent: 'flex-start',
-      backgroundColor: '#fbfbfb',
+      backgroundColor: '#EDEDED',
     },
-    images:{
-      width: 100, 
-      height: 150,
-      margin:5,
+    bar:{
+        marginTop: 20,
+    },
+    datos:{
+      margin:20, 
+      alignItems:'center', 
+      justifyContent:'center',
+
     },
     texto:{
-      color: 'black', 
-      textAlign: 'center', 
-      fontSize: 20,
-      margin: 10,
-      fontWeight: 'bold',
+        color: '#000000', 
+        textAlign: 'center', 
+        fontSize: 20,
+        margin: 10,
+        fontWeight: 'bold',
     }
 });
   

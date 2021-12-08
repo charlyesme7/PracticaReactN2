@@ -6,18 +6,17 @@ import { Card } from 'react-native-elements'
 
 
 const DetailScreen = ({route}) => {
-    const {Lati,Longi} = route.params;
+    const {lat,lon} = route.params;
     const [datos, setDatos]=useState([]);
     const [wait, setWait]=useState(false);
     useEffect(()=>{
         const apikey ="32f8dd88c90cd07cf7953cc26459fa6f";
-        const api_url=`https://api.openweathermap.org/data/2.5/onecall?lat=${Lati}&lon=${Longi}&exclude=current,minutely,hourly&appid=${apikey}&units=metric`;
+        const api_url=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&appid=${apikey}&units=metric`;
         fetch(api_url)
             .then(data => {
                 return data.json()
             }).then(resultado=>
             {   
-                console.log(resultado)
                 setDatos(resultado);
                 setWait(true);
             });
@@ -27,7 +26,7 @@ const DetailScreen = ({route}) => {
     const createDate=(dt,ix)=> {
         if (ix===0)
         {
-            return "En este dia";
+            return "Hoy";
         }
         else
         {
@@ -45,19 +44,23 @@ const DetailScreen = ({route}) => {
                     ?
                     datos.daily.map((a,b)=>
                         <Card key={b}>
-                            <Card.Title style={styles.texto2} >{createDate(a.dt,b)}</Card.Title>
+                            <Card.Title style={{color: 'black', textAlign: 'left', fontSize: 20, margin: 10, fontWeight: 'bold',}} >{createDate(a.dt,b)}</Card.Title>
                             <Card.Divider></Card.Divider>
                             <View>
+                                <Text style={{color: 'black', textAlign: 'center', fontSize: 20, margin: 10, fontWeight: 'bold',}}>
+                                    {a.temp.day}°C
+                                </Text>
                                 <Text style={styles.texto}>
-                                    Temperatura: {a.temp.day}°C{"\n"}
-                                    Temperatura minima: {a.temp.min}°C{"\n"}
-                                    Temperatura maxima: {a.temp.max}°C{"\n"}
+                                    Min: {a.temp.min}°C
+                                </Text>
+                                <Text style={styles.texto}>
+                                    Max: {a.temp.max}°C
                                 </Text>
                             </View>
                         </Card>
                     )
                     :
-                    <Text style={styles.texto2}>Espera un momento, esta cargando.</Text>                    
+                    <Text></Text>                    
 
                 }
             </ScrollView>
@@ -74,25 +77,11 @@ const styles = StyleSheet.create({
       flexDirection:'column',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#c1c1c1',
-    },
-    images:{
-      width: 200, 
-      height: 300,
-      margin:5,
-      alignSelf:'center'
+      backgroundColor: '#B3A7AB',
     },
     texto:{
-      color: 'red', 
+      color: '#000000', 
       textAlign: 'center', 
-      fontSize: 18,
-      margin: 10,
+      fontSize: 20,
     },
-    texto2:{
-        color: 'black', 
-        textAlign: 'center', 
-        fontSize: 20,
-        margin: 10,
-        fontWeight: 'bold',
-    }
   });
